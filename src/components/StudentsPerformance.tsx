@@ -1,5 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
-import { PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from 'recharts';
 
 interface PerformanceDistributionProps {
   darkMode?: boolean;
@@ -23,26 +23,26 @@ export function PerformanceDistribution({ darkMode }: PerformanceDistributionPro
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Distribuição de performance</CardTitle>
+        <CardTitle>Performance dos Estudantes</CardTitle>
         <p className="text-gray-600 dark:text-gray-400">Variação de pontuação</p>
       </CardHeader>
       <CardContent>
         <ResponsiveContainer width="100%" height={300}>
-          <PieChart>
-            <Pie
-              data={data}
-              cx="50%"
-              cy="50%"
-              labelLine={false}
-              label={(entry: any) => `${((entry.percent || 0) * 100).toFixed(0)}%`}
-              outerRadius={80}
-              fill="#8884d8"
-              dataKey="value"
-            >
-              {data.map((entry, index) => (
-                <Cell key={`cell-${index}`} fill={entry.color} />
-              ))}
-            </Pie>
+          <BarChart data={data}>
+            <CartesianGrid strokeDasharray="3 3" stroke={darkMode ? '#374151' : '#f0f0f0'} />
+            <XAxis 
+              dataKey="name"
+              stroke={darkMode ? '#9ca3af' : '#9ca3af'}
+              style={{ fontSize: '16px' }}
+              angle={-15}
+              textAnchor="end"
+              height={80}
+            />
+            <YAxis 
+              stroke={darkMode ? '#9ca3af' : '#9ca3af'}
+              style={{ fontSize: '12px' }}
+              label={{ value: 'Estudantes', angle: -90, position: 'insideLeft', style: { fontSize: '12px' } }}
+            />
             <Tooltip 
               contentStyle={{
                 backgroundColor: darkMode ? '#1f2937' : '#fff',
@@ -50,9 +50,17 @@ export function PerformanceDistribution({ darkMode }: PerformanceDistributionPro
                 borderRadius: '8px',
                 color: darkMode ? '#fff' : '#000',
               }}
+              formatter={(value: number) => [`${value} estudantes`, 'Quantidade']}
             />
-            <Legend />
-          </PieChart>
+            <Bar 
+              dataKey="value" 
+              radius={[8, 8, 0, 0]}
+            >
+              {data.map((entry, index) => (
+                <Cell key={`cell-${index}`} fill={entry.color} />
+              ))}
+            </Bar>
+          </BarChart>
         </ResponsiveContainer>
       </CardContent>
     </Card>

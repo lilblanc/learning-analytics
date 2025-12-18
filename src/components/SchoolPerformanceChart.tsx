@@ -18,7 +18,7 @@ export function SchoolPerformanceChart({ darkMode }: SchoolPerformanceChartProps
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Desempenho por Escola</CardTitle>
+        <CardTitle>Desempenho por instituição de ensino</CardTitle>
         <p className="text-gray-600 dark:text-gray-400">Comparativo de métricas entre instituições</p>
       </CardHeader>
       <CardContent>

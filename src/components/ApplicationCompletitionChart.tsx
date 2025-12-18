@@ -117,7 +117,7 @@ import {Card,CardContent,CardHeader,CardTitle} from "../components/ui/card";
         <Card>
           <CardHeader>
             <CardTitle>
-              Desempenho por tipo de tributo
+              Desempenho por conteúdo trabalhado
             </CardTitle>
             <p className="text-gray-600 dark:text-gray-400">
               Acertos e erros por conteúdo trabalhado

@@ -16,7 +16,7 @@ export function CityPerformanceChart({ darkMode }: CityPerformanceChartProps) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Desempenho por Cidade</CardTitle>
+        <CardTitle>Desempenho por município</CardTitle>
         <p className="text-gray-600 dark:text-gray-400">Análise regional - Mato Grosso</p>
       </CardHeader>
       <CardContent>
