@@ -3,7 +3,6 @@ import {
   Users,
   BookOpen,
   Award,
-  TrendingUp,
 } from "lucide-react";
 
 interface MetricsOverviewProps {
@@ -23,35 +22,31 @@ export function MetricsOverview({
           students: { value: '2,847', change: '+12.5%' },
           courses: { value: '48', change: '+3' },
           completion: { value: '74.2%', change: '+5.4%' },
-          engagement: { value: '8.4/10', change: '+0.8' },
+
         };
       case '30d':
         return {
           students: { value: '2,652', change: '+8.3%' },
           courses: { value: '45', change: '+2' },
           completion: { value: '72.8%', change: '+3.2%' },
-          engagement: { value: '8.1/10', change: '+0.5' },
         };
       case '90d':
         return {
           students: { value: '2,415', change: '+15.7%' },
           courses: { value: '42', change: '+5' },
           completion: { value: '71.5%', change: '+7.8%' },
-          engagement: { value: '7.9/10', change: '+1.2' },
         };
       case '1y':
         return {
           students: { value: '2,156', change: '+24.3%' },
           courses: { value: '38', change: '+8' },
           completion: { value: '68.9%', change: '+12.1%' },
-          engagement: { value: '7.5/10', change: '+1.8' },
         };
       default:
         return {
           students: { value: '2,847', change: '+12.5%' },
           courses: { value: '48', change: '+3' },
           completion: { value: '74.2%', change: '+5.4%' },
-          engagement: { value: '8.4/10', change: '+0.8' },
         };
     }
   };
@@ -89,27 +84,19 @@ export function MetricsOverview({
       bgColor: darkMode ? "bg-purple-950" : "bg-purple-50",
       darkColor: "dark:text-purple-400",
     },
-    {
-      title: "Taxa de engajamento",
-      value: data.engagement.value,
-      change: data.engagement.change,
-      trend: "up",
-      icon: TrendingUp,
-      color: "text-orange-600",
-      bgColor: darkMode ? "bg-orange-950" : "bg-orange-50",
-      darkColor: "dark:text-orange-400",
-    },
+
     
   ];
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+  <div className="max-w-7x1 mx-auto">
+    <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-2 justify-items-center">
       {metrics.map((metric, index) => {
         const Icon = metric.icon;
         return (
           <Card key={index}>
-            <CardContent className="p-6">
-              <div className="flex items-start justify-between">
+            <CardContent className="p-6 place">
+              <div className="flex justify-between "> 
                 <div className="space-y-2">
                   <p className="text-gray-600 dark:text-gray-400">
                     {metric.title}
@@ -132,5 +119,6 @@ export function MetricsOverview({
         );
       })}
     </div>
+  </div>
   );
 }
