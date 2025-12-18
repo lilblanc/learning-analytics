@@ -1,7 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from 'recharts';
 
-interface PerformanceDistributionProps {
+interface StudentsPerformanceProps {
   darkMode?: boolean;
 }
 
@@ -12,7 +12,7 @@ interface ChartDataItem {
   [key: string]: any;
 }
 
-export function PerformanceDistribution({ darkMode }: PerformanceDistributionProps) {
+export function StudentsPerformance({ darkMode }: StudentsPerformanceProps) {
   const data: ChartDataItem[] = [
     { name: 'Excelente (90-100%)', value: 412, color: '#10b981' },
     { name: 'Bom(80-89%)', value: 687, color: '#3b82f6' },

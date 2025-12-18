@@ -4,7 +4,7 @@ import { EngagementChart } from './components/EngagementChart';
 import { ApplicationCompletionChart } from './components/ApplicationCompletitionChart';
 import { RecentActivityTable } from './components/RecentActivityTable';
 import { TopCoursesTable } from './components/TopCoursesTable';
-import { PerformanceDistribution } from './components/PerformanceDistribution';
+import { StudentsPerformance } from './components/StudentsPerformance';
 import { SchoolPerformanceChart } from './components/SchoolPerformanceChart';
 import { CityPerformanceChart } from './components/CityPerformanceChart';
 import { Button } from './components/ui/button';
@@ -67,7 +67,7 @@ export default function App() {
           {/* Charts Grid */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <EngagementChart timeRange={timeRange} darkMode={darkMode} />
-            <PerformanceDistribution darkMode={darkMode} />
+            <StudentsPerformance darkMode={darkMode} />
           </div>
 
           {/* Course Completion */}
