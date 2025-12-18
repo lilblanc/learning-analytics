@@ -17,6 +17,8 @@ import {
   SelectValue,
 } from './components/ui/select';
 
+import { ContentPerformanceChart } from './components/ContentPerformanceChart';
+
 export default function App() {
   const [timeRange, setTimeRange] = useState('7d');
   const [darkMode, setDarkMode] = useState(false);
@@ -72,6 +74,8 @@ export default function App() {
 
           {/* Course Completion */}
           <ApplicationCompletionChart darkMode={darkMode} />
+
+          <ContentPerformanceChart darkMode={darkMode} />
 
                     {/* City Performance */}
           <CityPerformanceChart darkMode={darkMode} />
