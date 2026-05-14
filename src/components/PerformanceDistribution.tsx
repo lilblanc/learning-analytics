@@ -1,24 +1,23 @@
+import { useEffect, useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
-import { PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from 'recharts';
+import { DashboardService, PerformanceData } from '../services/api';
 
-interface PerformanceDistributionProps {
-  darkMode?: boolean;
-}
-
-interface ChartDataItem {
-  name: string;
-  value: number;
-  color: string;
-  [key: string]: any;
-}
+interface PerformanceDistributionProps { darkMode?: boolean; }
 
 export function PerformanceDistribution({ darkMode }: PerformanceDistributionProps) {
-  const data: ChartDataItem[] = [
-    { name: 'Excelente (90-100%)', value: 412, color: '#10b981' },
-    { name: 'Bom(80-89%)', value: 687, color: '#3b82f6' },
-    { name: 'Mediano (70-79%)', value: 534, color: '#f59e0b' },
-    { name: 'Abaixo da média (<70%)', value: 298, color: '#ef4444' },
-  ];
+  const [data, setData] = useState<PerformanceData[]>([
+    { nome: 'Excelente (90–100%)', valor: 0, cor: '#10b981' },
+    { nome: 'Bom (80–89%)', valor: 0, cor: '#3b82f6' },
+    { nome: 'Mediano (70–79%)', valor: 0, cor: '#f59e0b' },
+    { nome: 'Abaixo da média (<70%)', valor: 0, cor: '#ef4444' },
+  ]);
+
+  useEffect(() => {
+    DashboardService.getDistribuicaoPerformance()
+      .then(apiData => setData(apiData))
+      .catch(err => console.log("Erro ao carregar distribuição de performance", err));
+  }, []);
 
   return (
     <Card>
@@ -27,32 +26,18 @@ export function PerformanceDistribution({ darkMode }: PerformanceDistributionPro
         <p className="text-gray-600 dark:text-gray-400">Variação de pontuação</p>
       </CardHeader>
       <CardContent>
-        <ResponsiveContainer width="100%" height={300}>
-          <PieChart>
-            <Pie
-              data={data}
-              cx="50%"
-              cy="50%"
-              labelLine={false}
-              label={(entry: any) => `${((entry.percent || 0) * 100).toFixed(0)}%`}
-              outerRadius={80}
-              fill="#8884d8"
-              dataKey="value"
-            >
+        <ResponsiveContainer width="100%" height={360}>
+          <BarChart data={data}>
+            <CartesianGrid strokeDasharray="3 3" stroke={darkMode ? '#374151' : '#e5e7eb'} />
+            <XAxis dataKey="nome" interval={0} angle={-20} textAnchor="end" height={80} tick={{ fill: darkMode ? '#d1d5db' : '#374151', fontSize: 12 }} tickLine={false} axisLine={false} />
+            <YAxis tick={{ fill: darkMode ? '#d1d5db' : '#374151', fontSize: 12 }} tickLine={false} axisLine={false} />
+            <Tooltip formatter={(value: number) => [`${value} alunos`, '']} contentStyle={{ backgroundColor: darkMode ? '#1f2937' : '#fff', border: `1px solid ${darkMode ? '#374151' : '#e5e7eb'}`, borderRadius: '8px', color: darkMode ? '#fff' : '#000' }} />
+            <Bar dataKey="valor" radius={[6, 6, 0, 0]}>
               {data.map((entry, index) => (
-                <Cell key={`cell-${index}`} fill={entry.color} />
+                <Cell key={index} fill={entry.cor} />
               ))}
-            </Pie>
-            <Tooltip 
-              contentStyle={{
-                backgroundColor: darkMode ? '#1f2937' : '#fff',
-                border: `1px solid ${darkMode ? '#374151' : '#e5e7eb'}`,
-                borderRadius: '8px',
-                color: darkMode ? '#fff' : '#000',
-              }}
-            />
-            <Legend />
-          </PieChart>
+            </Bar>
+          </BarChart>
         </ResponsiveContainer>
       </CardContent>
     </Card>

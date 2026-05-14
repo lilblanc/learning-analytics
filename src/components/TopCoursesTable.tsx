@@ -1,60 +1,25 @@
+import { useEffect, useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from './ui/table';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from './ui/table';
 import { Badge } from './ui/badge';
 import { TrendingUp, TrendingDown } from 'lucide-react';
+import { DashboardService, CourseData } from '../services/api';
 
-interface TopCoursesTableProps {
-  darkMode?: boolean;
-}
+interface TopCoursesTableProps { darkMode?: boolean; }
 
 export function TopCoursesTable({ darkMode }: TopCoursesTableProps) {
-  const courses = [
-    { 
-      name: 'Pequeno Grande Cidadão', 
-      students: 342, 
-      rating: 4.8, 
-      completion: 84,
-      trend: 'up',
-      change: 12
-    },
-    { 
-      name: 'Aventura Fiscal', 
-      students: 298, 
-      rating: 4.6, 
-      completion: 67,
-      trend: 'up',
-      change: 8
-    },
-    { 
-      name: 'Palvras Cruzadas', 
-      students: 267, 
-      rating: 4.9, 
-      completion: 88,
-      trend: 'up',
-      change: 15
-    },
-    { 
-      name: 'Palavras mágicas', 
-      students: 234, 
-      rating: 4.5, 
-      completion: 71,
-      trend: 'down',
-      change: 3
-    },
+  const [courses, setCourses] = useState<CourseData[]>([]);
 
-  ];
+  useEffect(() => {
+    DashboardService.getTopCursos()
+      .then(apiData => setCourses(apiData))
+      .catch(err => console.log("Erro ao carregar cursos", err));
+  }, []);
 
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Melhores </CardTitle>
+        <CardTitle>Melhores</CardTitle>
         <p className="text-gray-600 dark:text-gray-400">Mais populares e bem avaliados</p>
       </CardHeader>
       <CardContent>
@@ -72,21 +37,17 @@ export function TopCoursesTable({ darkMode }: TopCoursesTableProps) {
               <TableRow key={index}>
                 <TableCell>
                   <div className="flex items-center gap-2">
-                    {course.name}
-                    {course.trend === 'up' ? (
+                    {course.nome}
+                    {course.tendencia === 'up' ? (
                       <TrendingUp className={`h-3 w-3 ${darkMode ? 'text-green-400' : 'text-green-600'}`} />
                     ) : (
                       <TrendingDown className={`h-3 w-3 ${darkMode ? 'text-red-400' : 'text-red-600'}`} />
                     )}
                   </div>
                 </TableCell>
-                <TableCell>{course.students}</TableCell>
-                <TableCell>
-                  <Badge variant="secondary">
-                    ⭐ {course.rating}
-                  </Badge>
-                </TableCell>
-                <TableCell>{course.completion}%</TableCell>
+                <TableCell>{course.estudantes}</TableCell>
+                <TableCell><Badge variant="secondary">⭐ {course.avaliacao}</Badge></TableCell>
+                <TableCell>{course.taxaConclusao}%</TableCell>
               </TableRow>
             ))}
           </TableBody>
