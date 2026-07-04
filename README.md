@@ -1,73 +1,53 @@
-# React + TypeScript + Vite
+# Learning Analytics Dashboard
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Bem-vindo ao repositório do **Learning Analytics Dashboard**! 🎓📊
 
-Currently, two official plugins are available:
+Este é um projeto voltado à visualização de dados educacionais através de um painel analítico e interativo. Ele tem o intuito de apresentar de forma clara e objetiva o desempenho de estudantes, escolas e regiões, além de métricas de engajamento e conclusão de cursos.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Tecnologias Utilizadas
 
-## React Compiler
+- **[React](https://react.org/)** com **TypeScript** e **[Vite](https://vitejs.dev/)**
+- **[Tailwind CSS](https://tailwindcss.com/)** para estilização rápida, responsiva e moderna
+- **[Recharts](https://recharts.org/)** para criação de gráficos visuais variados
+- **[React Leaflet](https://react-leaflet.js.org/)** para mapas interativos (incluindo o mapa do estado de Mato Grosso utilizando GeoJSON)
+- **[Lucide React](https://lucide.dev/)** para iconografia
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 🌟 Funcionalidades
 
-## Expanding the ESLint configuration
+- **Métricas Gerais:** Visualização do número total de estudantes, ferramentas ativas e taxa média de conclusão.
+- **Gráficos de Engajamento e Desempenho:** Acompanhamento temporal e distribucional da participação dos alunos por meio de gráficos de linha, radar e barras.
+- **Análise Regional (Mapa do Mato Grosso):** Mapa interativo focado no estado de MT, que classifica as cidades (Excelente, Bom, Atenção) pela Nota Média e exibe dados detalhados da cidade ao passar o mouse.
+- **Top Cursos e Atividade Recente:** Tabelas detalhando as melhores aplicações e a movimentação recente dos usuários no sistema.
+- **Dark Mode:** Tema claro/escuro nativo adaptativo para melhor experiência visual e acessibilidade.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 🛠️ Como executar localmente
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+1. **Clone este repositório:**
+   ```bash
+   git clone https://github.com/lilblanc/learning-analytics.git
+   cd learning-analytics
+   ```
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+2. **Instale as dependências do projeto:**
+   ```bash
+   npm install
+   ```
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+3. **Inicie o servidor de desenvolvimento:**
+   ```bash
+   npm run dev
+   ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+4. Acesse no seu navegador o link fornecido no terminal (geralmente `http://localhost:5173/`).
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+*💡 **Dica:** O dashboard tenta se comunicar com uma API via `http://localhost:8000/api`. Caso o seu backend não esteja rodando, não se preocupe! O projeto fará o uso automático de dados "mockados" (falsos/de exemplo) para que a interface, o mapa e os gráficos continuem sendo renderizados para visualização.*
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## 📁 Estrutura de Pastas
+
+- `/src/assets`: Imagens e arquivos estáticos (como o arquivo JSON contendo as marcações do mapa).
+- `/src/components`: Componentes visuais do painel (Gráficos, Tabelas, Métricas e componentes da interface).
+- `/src/services`: Camada de configuração e comunicação das chamadas para a API (`api.ts`).
+- `/src/styles`: Arquivos globais de CSS.
+
+---
+Desenvolvido como projeto de conclusão (TCC) com o objetivo de auxiliar a tomada de decisões no ecossistema de aprendizagem.
