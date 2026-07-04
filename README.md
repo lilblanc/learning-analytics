@@ -50,4 +50,4 @@ Este é um projeto voltado à visualização de dados educacionais através de u
 - `/src/styles`: Arquivos globais de CSS.
 
 ---
-Desenvolvido como projeto de conclusão (TCC) com o objetivo de auxiliar a tomada de decisões no ecossistema de aprendizagem.
+Desenvolvido como trabalho de conclusão de curso (TCC) para obtenção do título de Bacharel em Engenharia da Computação pela Universidade Federal de Mato Grosso, Campus Várzea Grande.
