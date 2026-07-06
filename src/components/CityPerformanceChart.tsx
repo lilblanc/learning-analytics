@@ -116,6 +116,7 @@ export function CityPerformanceChart({ darkMode }: CityPerformanceChartProps) {
             scrollWheelZoom={false}
           >
             <GeoJSON
+              key={data.length}
               data={geojsonData as any}
               style={style}
               onEachFeature={onEachFeature}
