@@ -1,7 +1,7 @@
 
 
-// const API_BASE_URL = "https://api-la-production.up.railway.app/api";
-const API_BASE_URL = "http://localhost:8000/api";
+const API_BASE_URL = "https://api-la-production.up.railway.app/api";
+// const API_BASE_URL = "http://localhost:8000/api";
 
 export interface ApplicationData { aplicacao: string; matriculados: number; completado: number; emProgresso: number; }
 export interface TaxData { tributo: string; acerto: number; erro: number; }
