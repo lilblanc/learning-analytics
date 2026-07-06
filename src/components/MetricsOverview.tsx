@@ -27,24 +27,24 @@ export function MetricsOverview({ timeRange, darkMode }: MetricsOverviewProps) {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       {metrics.map((metric, index) => {
-          const Icon = metric.icon;
-          return (
-            <Card key={index} className="w-full">
-              <CardContent className="p-6">
-                <div className="flex justify-between">
-                  <div className="space-y-2">
-                    <p className="text-gray-600 dark:text-gray-400">{metric.title}</p>
-                    <p className="text-gray-900 dark:text-white">{metric.value}</p>
-                    <p className="text-green-600 dark:text-green-400">{metric.change} do último período</p>
-                  </div>
-                  <div className={`${metric.bgColor} ${metric.color} ${metric.darkColor} p-3 rounded-lg`}>
-                    <Icon className="h-6 w-6" />
-                  </div>
+        const Icon = metric.icon;
+        return (
+          <Card key={index} className="w-full">
+            <CardContent className="p-6">
+              <div className="flex justify-between">
+                <div className="space-y-2">
+                  <p className="text-gray-600 dark:text-gray-400">{metric.title}</p>
+                  <p className="text-gray-900 dark:text-white">{metric.value}</p>
+                  <p className="text-green-600 dark:text-green-400">{metric.change} do último período</p>
                 </div>
-              </CardContent>
-            </Card>
-          );
-        })}
+                <div className={`${metric.bgColor} ${metric.color} ${metric.darkColor} p-3 rounded-lg`}>
+                  <Icon className="h-6 w-6" />
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        );
+      })}
     </div>
   );
 }
