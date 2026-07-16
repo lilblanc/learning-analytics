@@ -3,16 +3,16 @@ import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts';
 import { DashboardService, SchoolData } from '../services/api';
 
-interface SchoolPerformanceChartProps { darkMode?: boolean; }
+interface SchoolPerformanceChartProps { darkMode?: boolean; timeRange: string; }
 
-export function SchoolPerformanceChart({ darkMode }: SchoolPerformanceChartProps) {
+export function SchoolPerformanceChart({ darkMode, timeRange }: SchoolPerformanceChartProps) {
   const [data, setData] = useState<SchoolData[]>([]);
 
   useEffect(() => {
-    DashboardService.getDesempenhoEscolas()
+    DashboardService.getDesempenhoEscolas(timeRange)
       .then(apiData => setData(apiData))
       .catch(err => console.log("Erro ao carregar desempenho por escola", err));
-  }, []);
+  }, [timeRange]);
 
   return (
     <Card>

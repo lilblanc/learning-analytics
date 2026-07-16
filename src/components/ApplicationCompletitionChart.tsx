@@ -5,9 +5,10 @@ import { DashboardService, ApplicationData, TaxData } from "../services/api";
 
 interface ApplicationCompletionChartProps {
   darkMode?: boolean;
+  timeRange: string;
 }
 
-export function ApplicationCompletionChart({ darkMode }: ApplicationCompletionChartProps) {
+export function ApplicationCompletionChart({ darkMode, timeRange }: ApplicationCompletionChartProps) {
   const [appData, setAppData] = useState<ApplicationData[]>([]);
   const [taxData, setTaxData] = useState<TaxData[]>([]);
   const [loading, setLoading] = useState(true);
@@ -17,8 +18,8 @@ export function ApplicationCompletionChart({ darkMode }: ApplicationCompletionCh
       try {
         setLoading(true);
         const [apps, taxes] = await Promise.all([
-          DashboardService.getConclusaoAtividades(),
-          DashboardService.getDesempenhoTributos()
+          DashboardService.getConclusaoAtividades(timeRange),
+          DashboardService.getDesempenhoTributos(timeRange)
         ]);
         setAppData(apps);
         setTaxData(taxes);
@@ -30,7 +31,7 @@ export function ApplicationCompletionChart({ darkMode }: ApplicationCompletionCh
     }
 
     loadAllData();
-  }, []);
+  }, [timeRange]);
 
   if (loading) {
     return (

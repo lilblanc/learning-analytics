@@ -5,9 +5,9 @@ import { Badge } from './ui/badge';
 import { Avatar, AvatarFallback } from './ui/avatar';
 import { DashboardService, RecentActivity } from '../services/api';
 
-interface RecentActivityTableProps { darkMode?: boolean; }
+interface RecentActivityTableProps { darkMode?: boolean; timeRange: string; }
 
-export function RecentActivityTable({ darkMode }: RecentActivityTableProps) {
+export function RecentActivityTable({ darkMode, timeRange }: RecentActivityTableProps) {
   const [activities, setActivities] = useState<RecentActivity[]>([
     { estudante: 'Sarah Fernandes', iniciais: 'SF', acao: 'Atividade concluída', aplicacao: 'Aventura fiscal', tempo: '5 minutos atrás', status: 'concluido' },
     { estudante: 'Michael Oliveira', iniciais: 'MO', acao: 'Iniciou atividade', aplicacao: 'Palavras cruzadas', tempo: '12 minutos atrás', status: 'em-progresso' },
@@ -16,10 +16,10 @@ export function RecentActivityTable({ darkMode }: RecentActivityTableProps) {
   ]);
 
   useEffect(() => {
-    DashboardService.getAtividadeRecente()
+    DashboardService.getAtividadeRecente(timeRange)
       .then(data => setActivities(data))
       .catch(err => console.log("Usando mock para atividades recentes.", err));
-  }, []);
+  }, [timeRange]);
 
   const getStatusColor = (status: string) => {
     switch (status) {

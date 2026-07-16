@@ -5,18 +5,18 @@ import 'leaflet/dist/leaflet.css';
 import { DashboardService, CityData } from '../services/api';
 import geojsonData from '../assets/mato-grosso-geojson.json';
 
-interface CityPerformanceChartProps { darkMode?: boolean; }
+interface CityPerformanceChartProps { darkMode?: boolean; timeRange: string; }
 
 // Função para normalizar nome de cidade
 const normalizeCityName = (name: string) => {
   return name.trim().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
 };
 
-export function CityPerformanceChart({ darkMode }: CityPerformanceChartProps) {
+export function CityPerformanceChart({ darkMode, timeRange }: CityPerformanceChartProps) {
   const [data, setData] = useState<CityData[]>([]);
 
   useEffect(() => {
-    DashboardService.getDesempenhoCidades()
+    DashboardService.getDesempenhoCidades(timeRange)
       .then(apiData => {
         if (apiData && apiData.length > 0) {
           setData(apiData);
@@ -44,7 +44,7 @@ export function CityPerformanceChart({ darkMode }: CityPerformanceChartProps) {
           { cidade: 'Tangará da Serra', estudantes: 500, notaMedia: 74, engajamento: 70, taxaConclusao: 68 }
         ]);
       });
-  }, []);
+  }, [timeRange]);
 
   const cityDataMap = data.reduce((acc, city) => {
     acc[normalizeCityName(city.cidade)] = city;
@@ -116,6 +116,7 @@ export function CityPerformanceChart({ darkMode }: CityPerformanceChartProps) {
             scrollWheelZoom={false}
           >
             <GeoJSON
+              key={data.length}
               data={geojsonData as any}
               style={style}
               onEachFeature={onEachFeature}

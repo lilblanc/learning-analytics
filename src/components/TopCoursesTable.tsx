@@ -5,16 +5,16 @@ import { Badge } from './ui/badge';
 import { TrendingUp, TrendingDown } from 'lucide-react';
 import { DashboardService, CourseData } from '../services/api';
 
-interface TopCoursesTableProps { darkMode?: boolean; }
+interface TopCoursesTableProps { darkMode?: boolean; timeRange: string; }
 
-export function TopCoursesTable({ darkMode }: TopCoursesTableProps) {
+export function TopCoursesTable({ darkMode, timeRange }: TopCoursesTableProps) {
   const [courses, setCourses] = useState<CourseData[]>([]);
 
   useEffect(() => {
-    DashboardService.getTopCursos()
+    DashboardService.getTopCursos(timeRange)
       .then(apiData => setCourses(apiData))
       .catch(err => console.log("Erro ao carregar cursos", err));
-  }, []);
+  }, [timeRange]);
 
   return (
     <Card>

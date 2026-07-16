@@ -3,9 +3,9 @@ import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from 'recharts';
 import { DashboardService, PerformanceData } from '../services/api';
 
-interface PerformanceDistributionProps { darkMode?: boolean; }
+interface PerformanceDistributionProps { darkMode?: boolean; timeRange: string; }
 
-export function PerformanceDistribution({ darkMode }: PerformanceDistributionProps) {
+export function PerformanceDistribution({ darkMode, timeRange }: PerformanceDistributionProps) {
   const [data, setData] = useState<PerformanceData[]>([
     { nome: 'Excelente (90–100%)', valor: 0, cor: '#10b981' },
     { nome: 'Bom (80–89%)', valor: 0, cor: '#3b82f6' },
@@ -14,10 +14,10 @@ export function PerformanceDistribution({ darkMode }: PerformanceDistributionPro
   ]);
 
   useEffect(() => {
-    DashboardService.getDistribuicaoPerformance()
+    DashboardService.getDistribuicaoPerformance(timeRange)
       .then(apiData => setData(apiData))
       .catch(err => console.log("Erro ao carregar distribuição de performance", err));
-  }, []);
+  }, [timeRange]);
 
   return (
     <Card>

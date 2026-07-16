@@ -66,23 +66,23 @@ export default function App() {
           {/* Charts Grid */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <EngagementChart timeRange={timeRange} darkMode={darkMode} />
-            <PerformanceDistribution darkMode={darkMode} />
+            <PerformanceDistribution timeRange={timeRange} darkMode={darkMode} />
           </div>
 
           {/* Course Completion */}
-          <ApplicationCompletionChart darkMode={darkMode} />
+          <ApplicationCompletionChart timeRange={timeRange} darkMode={darkMode} />
 
                     {/* City Performance */}
-          <CityPerformanceChart darkMode={darkMode} />
+          <CityPerformanceChart timeRange={timeRange} darkMode={darkMode} />
 
           {/* School Performance */}
-          <SchoolPerformanceChart darkMode={darkMode} />
+          <SchoolPerformanceChart timeRange={timeRange} darkMode={darkMode} />
 
 
           {/* Tables Grid */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <TopCoursesTable darkMode={darkMode} />
-            <RecentActivityTable darkMode={darkMode} />
+            <TopCoursesTable timeRange={timeRange} darkMode={darkMode} />
+            <RecentActivityTable timeRange={timeRange} darkMode={darkMode} />
           </div>
 
 

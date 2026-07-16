@@ -1,7 +1,7 @@
 
 
-// const API_BASE_URL = "https://api-la-production.up.railway.app/api";
-const API_BASE_URL = "http://localhost:8000/api";
+const API_BASE_URL = "https://api-la-production.up.railway.app/api";
+// const API_BASE_URL = "http://localhost:8000/api";
 
 export interface ApplicationData { aplicacao: string; matriculados: number; completado: number; emProgresso: number; }
 export interface TaxData { tributo: string; acerto: number; erro: number; }
@@ -15,28 +15,28 @@ export interface MetricsData { estudantes: MetricDetail; ferramentas: MetricDeta
 export interface PerformanceData { nome: string; valor: number; cor: string; }
 
 export const DashboardService = {
-  async getConclusaoAtividades(): Promise<ApplicationData[]> {
-    const res = await fetch(`${API_BASE_URL}/dashboard/conclusao-atividades`);
+  async getConclusaoAtividades(timeRange: string): Promise<ApplicationData[]> {
+    const res = await fetch(`${API_BASE_URL}/dashboard/conclusao-atividades?range=${timeRange}`);
     if (!res.ok) throw new Error("Erro API"); return res.json();
   },
-  async getDesempenhoTributos(): Promise<TaxData[]> {
-    const res = await fetch(`${API_BASE_URL}/dashboard/tributos`);
+  async getDesempenhoTributos(timeRange: string): Promise<TaxData[]> {
+    const res = await fetch(`${API_BASE_URL}/dashboard/tributos?range=${timeRange}`);
     if (!res.ok) throw new Error("Erro API"); return res.json();
   },
-  async getAtividadeRecente(): Promise<RecentActivity[]> {
-    const res = await fetch(`${API_BASE_URL}/dashboard/atividade-recente`);
+  async getAtividadeRecente(timeRange: string): Promise<RecentActivity[]> {
+    const res = await fetch(`${API_BASE_URL}/dashboard/atividade-recente?range=${timeRange}`);
     if (!res.ok) throw new Error("Erro API"); return res.json();
   },
-  async getDesempenhoEscolas(): Promise<SchoolData[]> {
-    const res = await fetch(`${API_BASE_URL}/dashboard/escolas`);
+  async getDesempenhoEscolas(timeRange: string): Promise<SchoolData[]> {
+    const res = await fetch(`${API_BASE_URL}/dashboard/escolas?range=${timeRange}`);
     if (!res.ok) throw new Error("Erro API"); return res.json();
   },
-  async getTopCursos(): Promise<CourseData[]> {
-    const res = await fetch(`${API_BASE_URL}/dashboard/top-cursos`);
+  async getTopCursos(timeRange: string): Promise<CourseData[]> {
+    const res = await fetch(`${API_BASE_URL}/dashboard/top-cursos?range=${timeRange}`);
     if (!res.ok) throw new Error("Erro API"); return res.json();
   },
-  async getDesempenhoCidades(): Promise<CityData[]> {
-    const res = await fetch(`${API_BASE_URL}/dashboard/cidades`);
+  async getDesempenhoCidades(timeRange: string): Promise<CityData[]> {
+    const res = await fetch(`${API_BASE_URL}/dashboard/cidades?range=${timeRange}`);
     if (!res.ok) throw new Error("Erro API"); return res.json();
   },
   async getEngajamento(timeRange: string): Promise<EngagementData[]> {
@@ -47,8 +47,8 @@ export const DashboardService = {
     const res = await fetch(`${API_BASE_URL}/dashboard/metricas-gerais?range=${timeRange}`);
     if (!res.ok) throw new Error("Erro API"); return res.json();
   },
-  async getDistribuicaoPerformance(): Promise<PerformanceData[]> {
-    const res = await fetch(`${API_BASE_URL}/dashboard/performance`);
+  async getDistribuicaoPerformance(timeRange: string): Promise<PerformanceData[]> {
+    const res = await fetch(`${API_BASE_URL}/dashboard/performance?range=${timeRange}`);
     if (!res.ok) throw new Error("Erro API"); return res.json();
   }
 };
