@@ -14,9 +14,10 @@ export function ApplicationCompletionChart({ darkMode, timeRange }: ApplicationC
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    let isFirstLoad = true;
     async function loadAllData() {
       try {
-        setLoading(true);
+        if (isFirstLoad) setLoading(true);
         const [apps, taxes] = await Promise.all([
           DashboardService.getConclusaoAtividades(timeRange),
           DashboardService.getDesempenhoTributos(timeRange)
@@ -26,11 +27,16 @@ export function ApplicationCompletionChart({ darkMode, timeRange }: ApplicationC
       } catch (error) {
         console.error("Falha na sincronização com o banco:", error);
       } finally {
-        setLoading(false);
+        if (isFirstLoad) {
+          setLoading(false);
+          isFirstLoad = false;
+        }
       }
     }
 
     loadAllData();
+    const intervalId = setInterval(loadAllData, 3000);
+    return () => clearInterval(intervalId);
   }, [timeRange]);
 
   if (loading) {

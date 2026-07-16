@@ -16,9 +16,15 @@ export function RecentActivityTable({ darkMode, timeRange }: RecentActivityTable
   ]);
 
   useEffect(() => {
-    DashboardService.getAtividadeRecente(timeRange)
-      .then(data => setActivities(data))
-      .catch(err => console.log("Usando mock para atividades recentes.", err));
+    const loadData = () => {
+      DashboardService.getAtividadeRecente(timeRange)
+        .then(data => setActivities(data))
+        .catch(err => console.log("Usando mock para atividades recentes.", err));
+    };
+
+    loadData();
+    const intervalId = setInterval(loadData, 3000);
+    return () => clearInterval(intervalId);
   }, [timeRange]);
 
   const getStatusColor = (status: string) => {

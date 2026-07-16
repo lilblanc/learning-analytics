@@ -14,9 +14,15 @@ export function PerformanceDistribution({ darkMode, timeRange }: PerformanceDist
   ]);
 
   useEffect(() => {
-    DashboardService.getDistribuicaoPerformance(timeRange)
-      .then(apiData => setData(apiData))
-      .catch(err => console.log("Erro ao carregar distribuição de performance", err));
+    const loadData = () => {
+      DashboardService.getDistribuicaoPerformance(timeRange)
+        .then(apiData => setData(apiData))
+        .catch(err => console.log("Erro ao carregar distribuição de performance", err));
+    };
+    
+    loadData();
+    const intervalId = setInterval(loadData, 3000);
+    return () => clearInterval(intervalId);
   }, [timeRange]);
 
   return (

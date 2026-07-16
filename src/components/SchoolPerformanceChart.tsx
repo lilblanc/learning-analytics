@@ -9,9 +9,15 @@ export function SchoolPerformanceChart({ darkMode, timeRange }: SchoolPerformanc
   const [data, setData] = useState<SchoolData[]>([]);
 
   useEffect(() => {
-    DashboardService.getDesempenhoEscolas(timeRange)
-      .then(apiData => setData(apiData))
-      .catch(err => console.log("Erro ao carregar desempenho por escola", err));
+    const loadData = () => {
+      DashboardService.getDesempenhoEscolas(timeRange)
+        .then(apiData => setData(apiData))
+        .catch(err => console.log("Erro ao carregar desempenho por escola", err));
+    };
+
+    loadData();
+    const intervalId = setInterval(loadData, 3000);
+    return () => clearInterval(intervalId);
   }, [timeRange]);
 
   return (

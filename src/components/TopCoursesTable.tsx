@@ -11,9 +11,15 @@ export function TopCoursesTable({ darkMode, timeRange }: TopCoursesTableProps) {
   const [courses, setCourses] = useState<CourseData[]>([]);
 
   useEffect(() => {
-    DashboardService.getTopCursos(timeRange)
-      .then(apiData => setCourses(apiData))
-      .catch(err => console.log("Erro ao carregar cursos", err));
+    const loadData = () => {
+      DashboardService.getTopCursos(timeRange)
+        .then(apiData => setCourses(apiData))
+        .catch(err => console.log("Erro ao carregar cursos", err));
+    };
+
+    loadData();
+    const intervalId = setInterval(loadData, 3000);
+    return () => clearInterval(intervalId);
   }, [timeRange]);
 
   return (

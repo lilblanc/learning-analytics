@@ -17,9 +17,15 @@ export function EngagementChart({ timeRange, darkMode }: EngagementChartProps) {
   ]);
 
   useEffect(() => {
-    DashboardService.getEngajamento(timeRange)
-      .then(apiData => setData(apiData))
-      .catch(err => console.log(`Usando mock para engajamento (${timeRange}).`, err));
+    const loadData = () => {
+      DashboardService.getEngajamento(timeRange)
+        .then(apiData => setData(apiData))
+        .catch(err => console.log(`Usando mock para engajamento (${timeRange}).`, err));
+    };
+
+    loadData();
+    const intervalId = setInterval(loadData, 3000);
+    return () => clearInterval(intervalId);
   }, [timeRange]);
 
   return (

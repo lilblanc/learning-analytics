@@ -13,9 +13,15 @@ export function MetricsOverview({ timeRange, darkMode }: MetricsOverviewProps) {
   });
 
   useEffect(() => {
-    DashboardService.getMetricasGerais(timeRange)
-      .then(apiData => setData(apiData))
-      .catch(err => console.log(`Usando mock para métricas (${timeRange}).`, err));
+    const loadData = () => {
+      DashboardService.getMetricasGerais(timeRange)
+        .then(apiData => setData(apiData))
+        .catch(err => console.log(`Usando mock para métricas (${timeRange}).`, err));
+    };
+
+    loadData();
+    const intervalId = setInterval(loadData, 3000);
+    return () => clearInterval(intervalId);
   }, [timeRange]);
 
   const metrics = [

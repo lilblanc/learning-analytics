@@ -16,34 +16,32 @@ export function CityPerformanceChart({ darkMode, timeRange }: CityPerformanceCha
   const [data, setData] = useState<CityData[]>([]);
 
   useEffect(() => {
-    DashboardService.getDesempenhoCidades(timeRange)
-      .then(apiData => {
-        if (apiData && apiData.length > 0) {
-          setData(apiData);
-        } else {
-          // Fallback mock se retornar array vazio
-          setData([
-            { cidade: 'Cuiabá', estudantes: 1500, notaMedia: 88, engajamento: 92, taxaConclusao: 85 },
-            { cidade: 'Várzea Grande', estudantes: 800, notaMedia: 78, engajamento: 80, taxaConclusao: 75 },
-            { cidade: 'Rondonópolis', estudantes: 1200, notaMedia: 82, engajamento: 85, taxaConclusao: 80 },
-            { cidade: 'Sinop', estudantes: 900, notaMedia: 91, engajamento: 94, taxaConclusao: 88 },
-            { cidade: 'Tangará da Serra', estudantes: 500, notaMedia: 74, engajamento: 70, taxaConclusao: 68 },
-            { cidade: 'Cáceres', estudantes: 450, notaMedia: 81, engajamento: 79, taxaConclusao: 72 },
-            { cidade: 'Sorriso', estudantes: 600, notaMedia: 89, engajamento: 91, taxaConclusao: 86 },
-            { cidade: 'Lucas do Rio Verde', estudantes: 550, notaMedia: 90, engajamento: 88, taxaConclusao: 87 }
-          ]);
-        }
-      })
-      .catch(err => {
-        console.log("Erro ao carregar desempenho por cidade, usando mock", err);
-        setData([
-          { cidade: 'Cuiabá', estudantes: 1500, notaMedia: 88, engajamento: 92, taxaConclusao: 85 },
-          { cidade: 'Várzea Grande', estudantes: 800, notaMedia: 78, engajamento: 80, taxaConclusao: 75 },
-          { cidade: 'Rondonópolis', estudantes: 1200, notaMedia: 82, engajamento: 85, taxaConclusao: 80 },
-          { cidade: 'Sinop', estudantes: 900, notaMedia: 91, engajamento: 94, taxaConclusao: 88 },
-          { cidade: 'Tangará da Serra', estudantes: 500, notaMedia: 74, engajamento: 70, taxaConclusao: 68 }
-        ]);
-      });
+    const loadData = () => {
+      DashboardService.getDesempenhoCidades(timeRange)
+        .then(apiData => {
+          if (apiData && apiData.length > 0) {
+            setData(apiData);
+          } else {
+            setData([
+              { cidade: 'Cuiabá', estudantes: 1500, notaMedia: 88, engajamento: 92, taxaConclusao: 85 },
+              { cidade: 'Várzea Grande', estudantes: 800, notaMedia: 78, engajamento: 80, taxaConclusao: 75 },
+              { cidade: 'Rondonópolis', estudantes: 1200, notaMedia: 82, engajamento: 85, taxaConclusao: 80 },
+              { cidade: 'Sinop', estudantes: 900, notaMedia: 91, engajamento: 94, taxaConclusao: 88 },
+              { cidade: 'Tangará da Serra', estudantes: 500, notaMedia: 74, engajamento: 70, taxaConclusao: 68 },
+              { cidade: 'Cáceres', estudantes: 450, notaMedia: 81, engajamento: 79, taxaConclusao: 72 },
+              { cidade: 'Sorriso', estudantes: 600, notaMedia: 89, engajamento: 91, taxaConclusao: 86 },
+              { cidade: 'Lucas do Rio Verde', estudantes: 550, notaMedia: 90, engajamento: 88, taxaConclusao: 87 }
+            ]);
+          }
+        })
+        .catch(err => {
+          console.log("Erro ao carregar desempenho por cidade", err);
+        });
+    };
+
+    loadData();
+    const intervalId = setInterval(loadData, 3000);
+    return () => clearInterval(intervalId);
   }, [timeRange]);
 
   const cityDataMap = data.reduce((acc, city) => {
