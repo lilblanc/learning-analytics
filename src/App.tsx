@@ -25,7 +25,6 @@ export default function App() {
     <div className={darkMode ? 'dark' : ''}>
       <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors">
         <div className="container mx-auto p-6 space-y-6">
-          {/* Header */}
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             <div>
               <h1 className="text-gray-900 dark:text-white">Learning Analytics Dashboard</h1>
